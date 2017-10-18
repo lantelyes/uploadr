@@ -45,25 +45,26 @@
             <!-- Page Content -->
             <div id="page-content-wrapper">
                 <div class="container-fluid">
-                    <a href="#search" class="btn btn-secondary float-right" id="menu-toggle"><i class="fa fa-search" aria-hidden="true"></i></a>
                     <a href="#menu-toggle" ng-click="menuToggle()" class="btn btn-secondary float-right" id="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></a>
+                    <a href="#menu-toggle" class="btn btn-secondary float-right" id="upload-button"><i class="fa fa-upload" aria-hidden="true"></i></a>
+                    <a href="#search" class="btn btn-secondary float-right" id="menu-toggle"><i class="fa fa-search" aria-hidden="false"></i></a>
                     <h1>Browser</h1>
                     <div id="accordion" role="tablist" aria-multiselectable="true">
                         <div ng-repeat="file in fileList track by $index">
                             <div class="card">
-                                <div class="card-header" role="tab"           id="heading{{ '{{$index}}' }}">
+                                <div class="card-header" role="tab" id="heading{{ '{{$index}}' }}">
                                     <h5 class="mb-0">
                                     <a data-toggle="collapse" data-parent="#accordion"
-                                       href="#collapse{{ '{{$index}}' }}" aria-expanded="true" aria-controls="collapse{{ '{{$index}}' }}">
+                                       href="#collapse{{ '{{$index}}' }}" aria-expanded="false" aria-controls="collapse{{ '{{$index}}' }}">
                                     <i class="fa fa-file" aria-hidden="true"></i>
                                     {{ '{{file.date_created}}' }}
                                     </a>
                                     </h5>
                                 </div>
                             </div>
-                            <div id="collapse{{ '{{$index}}' }}" class="collapse show" role="tabpanel" aria-labelledby="heading{{ '{{$index}}' }}">
+                            <div id="collapse{{ '{{$index}}' }}" class="collapse show"              role="tabpanel" aria-labelledby="heading{{ '{{$index}}' }}">
                                 <div class="card-block">
-                                    sd
+                                    
                                 </div>
                             </div>
                         </div>       
@@ -85,7 +86,6 @@
     <script src="{{ url_for('static', filename='js/app.js') }}"></script>
     <script src="{{ url_for('static', filename='js/controllers/MainController/MainController.js') }}"></script>
 
-    <script src="{{ url_for('static', filename='js/modules/ng-file-upload-all.min.js') }}"></script>
     
 
 </body>
