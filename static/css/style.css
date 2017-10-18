@@ -1,5 +1,7 @@
+.main-menu-button {
+    margin: 5px;
+}
 
-.upload-dialog {
-    width: 200px;
-    height: 100px;
+.margin-overide-zero {
+    margin: 0px !important;
 }
