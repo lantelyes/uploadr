@@ -1,7 +1,1 @@
-var app = angular.module('uploadr', []);
-
-app.controller('MainController', function($scope) {
-
-});
-
-
+var app = angular.module('Uploadr', []);

@@ -7,6 +7,7 @@ app = Flask(__name__)
 api = Api(app)
 
 api.add_resource(File, '/file')
+api.add_resource(List, '/list')
 
 @app.route('/')
 def index():

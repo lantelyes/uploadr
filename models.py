@@ -23,12 +23,24 @@ class File(Resource):
             'size_in_Kb': size,
             'is_folder': False,
             'uri': uri,
-            'dateCreated': str(datetime.now())
+            'date_created': str(datetime.now())
         }
+
+        file_collection.insert_one(file_data)
+        file_data['_id'] = str(file_data['_id'])
 
         return file_data
 
 
        
-class Folder(File):
-    pass
+class List(Resource):
+    def get(self):
+
+        file_list = list(file_collection.find())
+
+        for f in file_list:
+            f['_id'] = str(f['_id'])
+            f['date_created'] = str(f['date_created'])
+
+        return  file_list
+        
