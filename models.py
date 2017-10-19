@@ -39,7 +39,7 @@ class Upload(Resource):
         ext = filename.rsplit('.', 1)[1].lower()
         name = filename.rsplit('.', 1)[0]
         size = size = os.stat(path).st_size
-        text = textract.process("data/lantelyes.pdf")
+        text = textract.process(path)
 
 
         file_data = {
@@ -88,6 +88,7 @@ def serialize_file_list(file_list):
 def build_search_qeuery(query, types, extentions):
 
     query_object = {}
+
     name_query = {}
     ext_query = {}
     contents_query = {}
@@ -101,7 +102,9 @@ def build_search_qeuery(query, types, extentions):
     if "contents" in types:
         contents_query = {"text":  {'$regex': query, "$options" : "i"} }
 
-    query_object =  {"$and": [name_query, ext_query]}
+    query_object =  {"$and": [name_query, contents_query, ext_query]}
+
+    print query_object
 
     return query_object
 
