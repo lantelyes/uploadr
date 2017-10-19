@@ -13,7 +13,7 @@
             METHOD: "POST"
         },
         DOWNLOAD: {
-            URL: "/file?oid=",
-            METHOD: "get"
+            URL: "/file?name=",
+            METHOD: "GET"
         }
     }
