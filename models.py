@@ -1,5 +1,6 @@
 from flask import request, Response, send_from_directory
 from werkzeug.utils import secure_filename
+from werkzeug.exceptions import BadRequest
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 from flask_restful import Resource, Api
@@ -35,9 +36,9 @@ class Upload(Resource):
             if not os.path.isfile(path):
                 file.save(path)
             else:
-                return Response(status=400, mimetype='application/json')
+                raise BadRequest("File already exists on server")
         else:
-            return Response(status=400, mimetype='application/json')
+            raise BadRequest("File not one of the allowed types")
 
         
         ext = filename.rsplit('.', 1)[1].lower()
@@ -68,7 +69,7 @@ class File(Resource):
         if filename:
             return send_from_directory(UPLOAD_FOLDER, filename, as_attachment=True)
         else:
-            return Response(status=400, mimetype='application/json')
+            raise BadRequest("No filename specified")
     
 
     def post(self):
@@ -80,6 +81,30 @@ class File(Resource):
         file_collection.update_one({'_id' : oid},{"$set": {"description" : description}}, False)
 
         return Response(status=200, mimetype='application/json')
+
+    def delete(self):
+        oid = request.args.get("oid")
+        if oid:
+            file = file_collection.find_one({"_id": ObjectId(oid)})
+            if file:
+                path = file["path"]
+                if os.path.isfile(path):
+                    os.remove(path)
+                    file_collection.delete_one(file)
+                else:
+                    raise BadRequest("File not found in server storage") 
+            else:
+                raise BadRequest("File not found in database")
+        else:
+            raise BadRequest("No ObjectId provided for deletion")
+
+
+        return Response(status=200, mimetype='application/json')
+                
+            
+            
+
+        
 
 def serialize_file_list(file_list):
         for f in file_list:
