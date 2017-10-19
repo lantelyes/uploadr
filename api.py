@@ -65,7 +65,11 @@ class File(Resource):
 
         filename = request.args.get("name")
         if filename:
-            return send_from_directory(UPLOAD_FOLDER, filename, as_attachment=True)
+            path = os.path.join(UPLOAD_FOLDER, filename)
+            if os.path.isfile(path):
+                return send_from_directory(UPLOAD_FOLDER, filename, as_attachment=True)
+            else:
+                raise BadRequest("File requested does not exist on server")
         else:
             raise BadRequest("No filename specified")
     
@@ -77,9 +81,16 @@ class File(Resource):
         oid = ObjectId(file['_id'])
         description = file['description']
 
-        file_collection.update_one({'_id' : oid},{"$set": {"description" : description}}, False)
+        if oid:
+            if file_collection.find({'_id' : oid}).count() == 1:
+                file_collection.update_one({'_id' : oid},{"$set": {"description" : description}}, False)
+                return Response(status=200, mimetype='application/json')
+            else:
+                raise BadRequest("File with that ObjectId not in database")
+        else:
+            raise BadRequest("No ObjectId specified, cannot update file entry")
 
-        return Response(status=200, mimetype='application/json')
+        
 
     def delete(self):
 
