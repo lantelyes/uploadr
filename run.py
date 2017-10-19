@@ -10,6 +10,7 @@ api.add_resource(File, '/file')
 api.add_resource(List, '/list')
 api.add_resource(Upload, '/upload')
 
+#our main page
 @app.route('/')
 def index():
     return render_template('index.html')

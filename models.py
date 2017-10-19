@@ -11,11 +11,13 @@ import textract
 from utils import *
 from constants import *
 
-
+#Get our file database
 client = MongoClient()
 db = client.file_database
 file_collection = db.file_collection
 
+#Upload endpoint
+#Responsible for: uploading files from the frontend and saving them to the server filesystem and database 
 class Upload(Resource):
 
     def post(self):
@@ -55,6 +57,8 @@ class Upload(Resource):
 
         return Response(status=200, mimetype='application/json')
 
+#File endpoint:
+#Responsible for: Downloading, updating, and deleting files stored in the database and on the server
 class File(Resource):
 
     def get(self):
@@ -78,7 +82,7 @@ class File(Resource):
         return Response(status=200, mimetype='application/json')
 
     def delete(self):
-        
+
         oid = request.args.get("oid")
         if oid:
             file = file_collection.find_one({"_id": ObjectId(oid)})
@@ -97,7 +101,8 @@ class File(Resource):
 
         return Response(status=200, mimetype='application/json')
                 
-
+#List endpoint
+#Responsible for: retreving a list of files
 class List(Resource):
     def get(self):
 
