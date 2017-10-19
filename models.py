@@ -31,7 +31,11 @@ class Upload(Resource):
         if file and is_allowed_file(file.filename):
             filename = secure_filename(file.filename)
             path = os.path.join(UPLOAD_FOLDER, filename)
-            file.save(path)
+
+            if not os.path.isfile(path):
+                file.save(path)
+            else:
+                return Response(status=400, mimetype='application/json')
         else:
             return Response(status=400, mimetype='application/json')
 
@@ -40,12 +44,13 @@ class Upload(Resource):
         name = filename.rsplit('.', 1)[0]
         size = size = os.stat(path).st_size
         text = textract.process(path)
+        date_created = str(datetime.now()).split(" ")[0]
 
 
         file_data = {
             'name': name,
             'size_in_Kb': size,
-            'date_created': str(datetime.now()),
+            'date_created': date_created,
             'path': path,
             'description': None,
             'extention': ext,
@@ -69,7 +74,6 @@ class File(Resource):
     def post(self):
         file = json.loads(request.data)
 
-
         oid = ObjectId(file['_id'])
         description = file['description']
 
@@ -84,13 +88,17 @@ def serialize_file_list(file_list):
 
         return file_list
        
-def build_search_qeuery(query, types, extentions):
+def build_search_qeuery(query, types, extentions,case_sensitive):
 
     query_object = {}
 
     name_query = {}
     ext_query = {}
     contents_query = {}
+    regex_options = "i"
+
+    if case_sensitive:
+        regex_options = ""
 
     if extentions:
         ext_query = {"$or" : []}
@@ -98,9 +106,9 @@ def build_search_qeuery(query, types, extentions):
             ext_query["$or"].append({"extention": ext})
     
     if "name" in types:
-        name_query = {"name":  {'$regex': query, "$options" : "i"} }
+        name_query = {"name":  {'$regex': query, "$options" : regex_options} }
     if "contents" in types:
-        contents_query = {"text":  {'$regex': query, "$options" : "i"} }
+        contents_query = {"text":  {'$regex': query, "$options" : regex_options} }
 
     query_object =  {"$and": [name_query, contents_query, ext_query]}
 
@@ -116,11 +124,9 @@ class List(Resource):
         search_query = request.args.get("query")
         serach_types = request.args.getlist("type")
         search_extentions = request.args.getlist("ext")
+        search_case_sensitive = request.args.getlist("case")
 
-        query_object = build_search_qeuery(search_query, serach_types, search_extentions)
-
-
-    
+        query_object = build_search_qeuery(search_query, serach_types, search_extentions, search_case_sensitive)
         file_list = list(file_collection.find(query_object))
     
 
