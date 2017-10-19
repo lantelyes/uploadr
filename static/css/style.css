@@ -6,6 +6,10 @@
     margin: 5px;
 }
 
+.file-details-button {
+    margin: 10px;
+}
+
 .margin-overide-zero {
     margin: 0px !important;
 }
