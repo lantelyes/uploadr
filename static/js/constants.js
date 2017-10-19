@@ -1,3 +1,19 @@
-API_URL = "http://localhost:5000/"
-FILE_DOWNLOAD_URL = "file?name="
-FILE_UPLOAD_URL = "upload"
+    UPLOAD_DIRECTORY = "data/",
+    API = {
+        UPLOAD: {
+            URL: "/upload",
+            METHOD: "NONE"
+        },
+        DELETE: {
+            URL: "/file?oid=",
+            METHOD: "DELETE"
+        },
+        UPDATE: {
+            URL: "/file",
+            METHOD: "POST"
+        },
+        DOWNLOAD: {
+            URL: "/file?oid=",
+            METHOD: "get"
+        }
+    }
