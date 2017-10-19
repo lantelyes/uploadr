@@ -43,7 +43,7 @@ class Upload(Resource):
         name = filename.rsplit('.', 1)[0]
         size = size = os.stat(path).st_size
         text = textract.process(path)
-        date_created = str(datetime.now()).split(" ")[0]
+        date_created = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
         file_data = {
             'name': name,
