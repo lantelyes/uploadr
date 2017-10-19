@@ -156,10 +156,16 @@ app.controller("MainController", function($scope, $http, Upload, toastr){
 
     init = function()  {
         populateFileList();
+
+        //Initialize bootstrap popovers
+        $(function () {
+            $('[data-toggle="popover"]').popover()
+          })
+
     }
 
 
-
+    //populate the file list with data from the server
     populateFileList = function() {
         $http({
             method: 'GET',

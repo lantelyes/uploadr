@@ -23,31 +23,17 @@
 
 <body>
     <div id='content' ng-app="Uploadr" ng-controller="MainController">
-        <div id="wrapper" ng-class="{toggled: isMenuOpen}">
-
-            <!-- Sidebar -->
-            <div id="sidebar-wrapper">
-                <ul class="sidebar-nav">
-                    <li class="sidebar-brand">
-                        <a href="#">
-                            Uploadr
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">About</a>
-                    </li>
-                    <li>
-                        <a href="#">Logout</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /#sidebar-wrapper -->
-
-            
+        <div id="wrapper">
             <!-- Page Content -->
             <div id="page-content-wrapper">
                 <div class="container-fluid">
-                    <a href="#menu-toggle" ng-click="menuToggle()" class="btn btn-secondary main-menu-button float-right" id="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></a>
+                    <a href="#about-button"                                
+                       data-toggle="popover"
+                       data-placement="bottom"
+                       data-content="Hey Atrium! Welcome to Uploadr. Heres a some tip to get you started: You can expand the file entries using the blue arrow on the left. This will let you view details and add/edit descriptions for the files." 
+                       class="btn btn-secondary main-menu-button float-right" id="about-button">
+                       <i class="fa fa-info-circle" aria-hidden="true"></i>
+                    </a>
                     <a href="#upload-button" ngf-select="upload($file)" class="btn btn-secondary main-menu-button float-right" id="upload-button"> <i class="fa fa-upload" aria-hidden="true"></i></a>
                     <a href="#search-button" data-toggle="collapse" data-target="#searchDialog" class="btn btn-secondary main-menu-button float-right" id="upload-button"><i class="fa fa-search" aria-hidden="false"></i></a>
                     <h1>Browser</h1>
@@ -119,6 +105,11 @@
                                     </tr>
                                 </tbody>
                             </table>
+                        </div>
+                    </div>
+                    <div class="card" ng-hide="fileList.length > 0">
+                        <div class="card-header" role="tab">
+                            Click the upload button to start uploading files!
                         </div>
                     </div>
                     <div id="accordion" role="tablist" aria-multiselectable="true">
