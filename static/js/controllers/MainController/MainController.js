@@ -1,5 +1,6 @@
 app.controller("MainController", function($scope, $http, Upload, toastr){ 
 
+
     //Options for the search dialog
     $scope.searchOptions = {
         query: "",
@@ -20,20 +21,33 @@ app.controller("MainController", function($scope, $http, Upload, toastr){
     //Upload the selected file to the server
     $scope.upload= function($file) {
          Upload.upload({
-            url: '/upload',
+            url: API.UPLOAD.URL,
             data: {file: $file},
-        }).then(function (resp) {
+        }).then(function (response) {
             toastr.success("Upload Successful");
             populateFileList();
-        }, function (resp) {
-            toastr.error("Upload Failed");
+        }, function (response) {
+            toastr.error(response.data.message);
         });
     }
 
+    //Upload the selected file to the server
+    $scope.delete = function(file) {
+        $http({
+            method: API.DELETE.METHOD,
+            url: API.DELETE.URL + file["_id"]
+        }).then(function successCallback(response) {
+    
+                populateFileList();
+    
+            }, function errorCallback(response) {
+                toastr.error(response.data.message);
+        });
+    }
     
     $scope.getDownloadLink = function(file) {
 
-        return API_URL + FILE_DOWNLOAD_URL + file.name + "." + file.extention;
+        return API.DOWNLOAD.URL + file.name + "." + file.extention;
 
     }
     
@@ -80,14 +94,14 @@ app.controller("MainController", function($scope, $http, Upload, toastr){
     $scope.saveFileDescription = function(file) {
 
         $http({
-            method: 'POST',
-            url: '/file',
+            method: API.UPDATE.METHOD,
+            url: API.UPDATE.URL,
             data: file
         }).then(function successCallback(response) {
                 toastr.success("Succesfily saved file desciption");
                 file.isEditingDescription = false
             }, function errorCallback(response) {
-                toastr.error("Error saving file desciption");
+                toastr.error(response.data.message);
         });
 
     }
@@ -131,7 +145,7 @@ app.controller("MainController", function($scope, $http, Upload, toastr){
         }).then(function successCallback(response) {
                 $scope.fileList = response.data;
             }, function errorCallback(response) {
-                toastr.error("Error searching for files");
+                toastr.error(response.data.message);
         });
     }
     
@@ -152,10 +166,11 @@ app.controller("MainController", function($scope, $http, Upload, toastr){
                 $scope.fileList = response.data;
     
             }, function errorCallback(response) {
-                console.log(response);
+                toastr.error(response.data.message);
         });
     }
 
     init();
-
 });
+
+
