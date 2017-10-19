@@ -32,25 +32,14 @@ app.controller("MainController", function($scope, $http, Upload, toastr){
     
     $scope.getDownloadLink = function(file) {
 
-        return API_URL + FILE_DOWNLOAD_URL + file.name;
+        return API_URL + FILE_DOWNLOAD_URL + file.name + "." + file.extention;
 
-    }
-    
-    //Get a normalized to lowercase extention from a filename
-    getExtentionFromFilename = function(filename){
-        
-        ext_split = filename.split(".");
-        ext = ext_split[ext_split.length-1].toLowerCase();
-
-        return ext;
     }
     
     //Given a file object, return the appropriate icon class for use in the DOM
     $scope.getFileIcon = function(file) {
 
-        ext = getExtentionFromFilename(file.name);
-        
-        switch(ext){
+        switch(file.extention){
             case "doc":
             case "docx":
                 return "fa-file-word-o"
@@ -65,10 +54,7 @@ app.controller("MainController", function($scope, $http, Upload, toastr){
     //Given a file object, return its type based on its extention
     $scope.getFileType = function(file) {
 
-        ext = getExtentionFromFilename(file.name);
-
-
-        switch(ext){
+        switch(file.extention){
             case "doc":
             case "docx":
                 return "Word Document"
