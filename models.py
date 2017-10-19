@@ -5,6 +5,7 @@ from bson.objectid import ObjectId
 from flask_restful import Resource, Api
 from datetime import datetime
 import os, json
+import textract
 
 
 
@@ -31,20 +32,24 @@ class Upload(Resource):
             filename = secure_filename(file.filename)
             path = os.path.join(UPLOAD_FOLDER, filename)
             file.save(path)
-            size = size = os.stat(path).st_size
         else:
             return Response(status=400, mimetype='application/json')
 
         
         ext = filename.rsplit('.', 1)[1].lower()
         name = filename.rsplit('.', 1)[0]
+        size = size = os.stat(path).st_size
+        text = textract.process("data/lantelyes.pdf")
+
+
         file_data = {
             'name': name,
             'size_in_Kb': size,
             'date_created': str(datetime.now()),
             'path': path,
             'description': None,
-            'extention': ext
+            'extention': ext,
+            'text': text
         }
 
         file_collection.insert_one(file_data)
@@ -83,14 +88,20 @@ def serialize_file_list(file_list):
 def build_search_qeuery(query, types, extentions):
 
     query_object = {}
-    ext_query = []
-    name_query = {"name":  {'$regex': query} }
+    name_query = {}
+    ext_query = {}
+    contents_query = {}
 
-    for ext in extentions:
-        ext_query.append({"extention" : ext})
+    if extentions:
+        ext_query = {"$or" : []}
+        for ext in extentions:
+            ext_query["$or"].append({"extention": ext})
+    if "name" in types:
+        name_query = {"name":  {'$regex': query, "$options" : "i"} }
+    if "contents" in types:
+        contents_query = {"text":  {'$regex': query, "$options" : "i"} }
 
-    
-    query_object =  name_query 
+    query_object =  {"$and": [name_query, ext_query]}
 
     return query_object
 
