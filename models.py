@@ -53,7 +53,6 @@ class Upload(Resource):
         }
 
         file_collection.insert_one(file_data)
-        file_data['_id'] = str(file_data['_id'])
 
         return Response(status=200, mimetype='application/json')
 
@@ -97,6 +96,7 @@ def build_search_qeuery(query, types, extentions):
         ext_query = {"$or" : []}
         for ext in extentions:
             ext_query["$or"].append({"extention": ext})
+    
     if "name" in types:
         name_query = {"name":  {'$regex': query, "$options" : "i"} }
     if "contents" in types:
