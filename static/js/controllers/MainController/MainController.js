@@ -1,6 +1,6 @@
 app.controller("MainController", function($scope, $http, Upload, toastr){ 
 
-
+    //Options for the search dialog
     $scope.searchOptions = {
         query: "",
         extentions: {
@@ -8,15 +8,16 @@ app.controller("MainController", function($scope, $http, Upload, toastr){
             pdf: false
         },
         types: {
-            name: false,
+            name: true,
             contents: false,
         },
         caseSensitive: false
     };
+
     $scope.fileList = [];
     $scope.isMenuOpen = false;
 
-    //Uplaod the selected file to the server
+    //Upload the selected file to the server
     $scope.upload= function($file) {
          Upload.upload({
             url: '/upload',
@@ -105,11 +106,15 @@ app.controller("MainController", function($scope, $http, Upload, toastr){
         }
         if(searchOptions.types.name)
         {
-            queryString += "type=name"
+            queryString += "type=name&"
         }
         if(searchOptions.types.contents)
         {
-            queryString += "type=contents"
+            queryString += "type=contents&"
+        }
+        if(searchOptions.caseSensitive)
+        {
+            queryString += "case=true"
         }
 
         return queryString;
