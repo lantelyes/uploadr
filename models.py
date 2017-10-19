@@ -1,13 +1,14 @@
 from flask import request, Response, send_from_directory
+from flask_restful import Resource, Api
 from werkzeug.utils import secure_filename
 from werkzeug.exceptions import BadRequest
 from pymongo import MongoClient
 from bson.objectid import ObjectId
-from flask_restful import Resource, Api
 from datetime import datetime
 import os, json
 import textract
 
+from utils import *
 
 
 client = MongoClient()
@@ -16,10 +17,9 @@ file_collection = db.file_collection
 
 
 UPLOAD_FOLDER = 'data/'
-ALLOWED_EXTENSIONS = set(['pdf','doc','docx'])
 
-def is_allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
+
 
 class Upload(Resource):
 
@@ -105,42 +105,6 @@ class File(Resource):
             
 
         
-
-def serialize_file_list(file_list):
-        for f in file_list:
-            f['_id'] = str(f['_id'])
-            f['date_created'] = str(f['date_created'])
-
-        return file_list
-       
-def build_search_qeuery(query, types, extentions,case_sensitive):
-
-    query_object = {}
-
-    name_query = {}
-    ext_query = {}
-    contents_query = {}
-    regex_options = "i"
-
-    if case_sensitive:
-        regex_options = ""
-
-    if extentions:
-        ext_query = {"$or" : []}
-        for ext in extentions:
-            ext_query["$or"].append({"extention": ext})
-    
-    if "name" in types:
-        name_query = {"name":  {'$regex': query, "$options" : regex_options} }
-    if "contents" in types:
-        contents_query = {"text":  {'$regex': query, "$options" : regex_options} }
-
-    query_object =  {"$and": [name_query, contents_query, ext_query]}
-
-    print query_object
-
-    return query_object
-
 
 
 class List(Resource):

@@ -45,6 +45,7 @@ app.controller("MainController", function($scope, $http, Upload, toastr){
         });
     }
     
+    //Get the download link for a given file
     $scope.getDownloadLink = function(file) {
 
         return API.DOWNLOAD.URL + file.name + "." + file.extention;
@@ -81,6 +82,7 @@ app.controller("MainController", function($scope, $http, Upload, toastr){
 
     }
 
+    //Toggle the side menu
     $scope.menuToggle = function() {
         $scope.isMenuOpen = !$scope.isMenuOpen;
     }
@@ -135,10 +137,11 @@ app.controller("MainController", function($scope, $http, Upload, toastr){
     }
     
     
-    $scope.searchFiles = function()
+    //Search files using the saved search paramaters
+    $scope.searchFiles = function(searchOptions)
     {
 
-        queryString = buildQueryString($scope.searchOptions);
+        queryString = buildQueryString(searchOptions);
         $http({
             method: 'GET',
             url: '/list?' + queryString,
