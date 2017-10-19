@@ -20,10 +20,10 @@ class Upload(Resource):
 
     def post(self):
 
+        file = request.files['file']
         size = 0
         path = ""
 
-        file = request.files['file']
         if file and is_allowed_file(file.filename):
             filename = secure_filename(file.filename)
             path = os.path.join(UPLOAD_FOLDER, filename)
@@ -34,14 +34,12 @@ class Upload(Resource):
                 raise BadRequest("File already exists on server")
         else:
             raise BadRequest("File not one of the allowed types")
-
-        
+   
         ext = filename.rsplit('.', 1)[1].lower()
         name = filename.rsplit('.', 1)[0]
         size = size = os.stat(path).st_size
         text = textract.process(path)
         date_created = str(datetime.now()).split(" ")[0]
-
 
         file_data = {
             'name': name,
@@ -60,6 +58,7 @@ class Upload(Resource):
 class File(Resource):
 
     def get(self):
+
         filename = request.args.get("name")
         if filename:
             return send_from_directory(UPLOAD_FOLDER, filename, as_attachment=True)
@@ -68,6 +67,7 @@ class File(Resource):
     
 
     def post(self):
+
         file = json.loads(request.data)
 
         oid = ObjectId(file['_id'])
@@ -78,6 +78,7 @@ class File(Resource):
         return Response(status=200, mimetype='application/json')
 
     def delete(self):
+        
         oid = request.args.get("oid")
         if oid:
             file = file_collection.find_one({"_id": ObjectId(oid)})
@@ -96,11 +97,6 @@ class File(Resource):
 
         return Response(status=200, mimetype='application/json')
                 
-            
-            
-
-        
-
 
 class List(Resource):
     def get(self):
@@ -113,6 +109,5 @@ class List(Resource):
         query_object = build_search_qeuery(search_query, serach_types, search_extentions, search_case_sensitive)
         file_list = list(file_collection.find(query_object))
     
-
         return  serialize_file_list(file_list)
         

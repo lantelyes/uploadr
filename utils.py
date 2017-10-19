@@ -40,5 +40,7 @@ def build_search_qeuery(query, types, extentions,case_sensitive):
 
     return query_object
 
+
+#checks if the filename is one of the allowed extentions
 def is_allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
