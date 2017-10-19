@@ -15,8 +15,8 @@ app.controller("MainController", function($scope, $http, Upload, toastr){
         caseSensitive: false
     };
 
+    //list of files loaded from server
     $scope.fileList = [];
-    $scope.isMenuOpen = false;
 
     //Upload the selected file to the server
     $scope.upload= function($file) {
@@ -80,11 +80,6 @@ app.controller("MainController", function($scope, $http, Upload, toastr){
                 return "Unknown"
         }
 
-    }
-
-    //Toggle the side menu
-    $scope.menuToggle = function() {
-        $scope.isMenuOpen = !$scope.isMenuOpen;
     }
 
     //Open the descripion editor
