@@ -11,6 +11,8 @@ import textract
 from utils import *
 from constants import *
 
+
+
 #Get our file database
 client = MongoClient()
 db = client.file_database
@@ -19,7 +21,7 @@ file_collection = db.file_collection
 #Upload endpoint
 #Responsible for: uploading files from the frontend and saving them to the server filesystem and database 
 class Upload(Resource):
-
+    @auth.login_required
     def post(self):
 
         file = request.files['file']
@@ -60,7 +62,7 @@ class Upload(Resource):
 #File endpoint:
 #Responsible for: Downloading, updating, and deleting files stored in the database and on the server
 class File(Resource):
-
+    @auth.login_required
     def get(self):
 
         filename = request.args.get("name")
@@ -73,7 +75,7 @@ class File(Resource):
         else:
             raise BadRequest("No filename specified")
     
-
+    @auth.login_required
     def post(self):
 
         file = json.loads(request.data)
@@ -91,7 +93,7 @@ class File(Resource):
             raise BadRequest("No ObjectId specified, cannot update file entry")
 
         
-
+    @auth.login_required
     def delete(self):
 
         oid = request.args.get("oid")
@@ -115,6 +117,7 @@ class File(Resource):
 #List endpoint
 #Responsible for: retreving a list of files
 class List(Resource):
+    @auth.login_required
     def get(self):
 
         search_query = request.args.get("query")
