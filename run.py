@@ -1,7 +1,6 @@
 from flask import Flask,  Request
 from flask import Flask, render_template
 from flask_restful import Api
-import flask_login
 from models import *
 
 

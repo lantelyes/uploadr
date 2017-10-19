@@ -1,13 +1,25 @@
 app.controller("MainController", function($scope, $http, Upload, toastr){ 
 
+
+    $scope.searchOptions = {
+        query: "",
+        extentions: {
+            word: false,
+            pdf: false
+        },
+        types: {
+            name: false,
+            contents: false,
+        },
+        caseSensitive: false
+    };
+    $scope.fileList = [];
     $scope.isMenuOpen = false;
 
-    $scope.fileList = [];
-    $scope.file = {};
-
+    //Uplaod the selected file to the server
     $scope.upload= function($file) {
          Upload.upload({
-            url: API_URL + FILE_UPLOAD_URL,
+            url: '/upload',
             data: {file: $file},
         }).then(function (resp) {
             toastr.success("Upload Successful");
@@ -17,12 +29,14 @@ app.controller("MainController", function($scope, $http, Upload, toastr){
         });
     }
 
+    
     $scope.getDownloadLink = function(file) {
 
         return API_URL + FILE_DOWNLOAD_URL + file.name;
 
     }
-
+    
+    //Get a normalized to lowercase extention from a filename
     getExtentionFromFilename = function(filename){
         
         ext_split = filename.split(".");
@@ -30,7 +44,8 @@ app.controller("MainController", function($scope, $http, Upload, toastr){
 
         return ext;
     }
-
+    
+    //Given a file object, return the appropriate icon class for use in the DOM
     $scope.getFileIcon = function(file) {
 
         ext = getExtentionFromFilename(file.name);
@@ -47,6 +62,7 @@ app.controller("MainController", function($scope, $http, Upload, toastr){
 
     }
 
+    //Given a file object, return its type based on its extention
     $scope.getFileType = function(file) {
 
         ext = getExtentionFromFilename(file.name);
@@ -68,12 +84,12 @@ app.controller("MainController", function($scope, $http, Upload, toastr){
         $scope.isMenuOpen = !$scope.isMenuOpen;
     }
 
+    //Open the descripion editor
     $scope.editFileDescription = function(file) {
-        console.log("edit");
         file.isEditingDescription = true;
-
     }
 
+    //Updatethe file descripion on the server
     $scope.saveFileDescription = function(file) {
 
         $http({
@@ -88,9 +104,45 @@ app.controller("MainController", function($scope, $http, Upload, toastr){
         });
 
     }
-    
-    
 
+    //Build a query string to pass to the API for file searching
+    buildQueryString = function(searchOptions) {
+        queryString =  "query="+searchOptions.query + "&";
+
+        if(searchOptions.extentions.word)
+        {
+            queryString += "ext=doc&ext=docx&"
+        }
+        if(searchOptions.extentions.pdf)
+        {
+            queryString += "ext=pdf&"
+        }
+        if(searchOptions.types.name)
+        {
+            queryString += "type=name"
+        }
+        if(searchOptions.types.contents)
+        {
+            queryString += "type=contents"
+        }
+
+        return queryString;
+    }
+    
+    
+    $scope.searchFiles = function()
+    {
+
+        queryString = buildQueryString($scope.searchOptions);
+        $http({
+            method: 'GET',
+            url: '/list?' + queryString,
+        }).then(function successCallback(response) {
+                $scope.fileList = response.data;
+            }, function errorCallback(response) {
+                toastr.error("Error searching for files");
+        });
+    }
     
 
 
@@ -103,7 +155,7 @@ app.controller("MainController", function($scope, $http, Upload, toastr){
     populateFileList = function() {
         $http({
             method: 'GET',
-            url: '/list'
+            url: '/list?query=&ext=pdf&ext=doc&ext=docx'
         }).then(function successCallback(response) {
     
                 $scope.fileList = response.data;

@@ -5,8 +5,6 @@ from bson.objectid import ObjectId
 from flask_restful import Resource, Api
 from datetime import datetime
 import os, json
-import flask_login
-from auth import *
 
 
 
@@ -39,9 +37,9 @@ class Upload(Resource):
 
         
         ext = filename.rsplit('.', 1)[1].lower()
-
+        name = filename.rsplit('.', 1)[0]
         file_data = {
-            'name': file.filename,
+            'name': name,
             'size_in_Kb': size,
             'date_created': str(datetime.now()),
             'path': path,
@@ -75,19 +73,42 @@ class File(Resource):
 
         return Response(status=200, mimetype='application/json')
 
-
-
-
-
-       
-class List(Resource):
-    def get(self):
-
-        file_list = list(file_collection.find())
-
+def serialize_file_list(file_list):
         for f in file_list:
             f['_id'] = str(f['_id'])
             f['date_created'] = str(f['date_created'])
 
-        return  file_list
+        return file_list
+       
+def build_search_qeuery(query, types, extentions):
+
+    query_object = {}
+    ext_query = []
+    name_query = {"name":  {'$regex': query} }
+
+    for ext in extentions:
+        ext_query.append({"extention" : ext})
+
+    
+    query_object =  name_query 
+
+    return query_object
+
+
+
+class List(Resource):
+    def get(self):
+
+        search_query = request.args.get("query")
+        serach_types = request.args.getlist("type")
+        search_extentions = request.args.getlist("ext")
+
+        query_object = build_search_qeuery(search_query, serach_types, search_extentions)
+
+
+    
+        file_list = list(file_collection.find(query_object))
+    
+
+        return  serialize_file_list(file_list)
         

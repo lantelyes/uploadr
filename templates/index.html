@@ -48,11 +48,77 @@
             <div id="page-content-wrapper">
                 <div class="container-fluid">
                     <a href="#menu-toggle" ng-click="menuToggle()" class="btn btn-secondary main-menu-button float-right" id="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></a>
-                    <a href="#upload-button" ngf-select="upload($file)" class="btn btn-secondary main-menu-button float-right" id="upload-button">
-                        <i class="fa fa-upload" aria-hidden="true"></i>
-                    </a>
-                    <a href="#search" class="btn btn-secondary main-menu-button float-right" id="upload-button"><i class="fa fa-search" aria-hidden="false"></i></a>
+                    <a href="#upload-button" ngf-select="upload($file)" class="btn btn-secondary main-menu-button float-right" id="upload-button"> <i class="fa fa-upload" aria-hidden="true"></i></a>
+                    <a href="#search-button" data-toggle="collapse" data-target="#searchDialog" class="btn btn-secondary main-menu-button float-right" id="upload-button"><i class="fa fa-search" aria-hidden="false"></i></a>
                     <h1>Browser</h1>
+                    <div class="collapse" id="searchDialog">
+                        <div class="card">
+                            <div class="card-header"><h5>Search</h5></div>
+                            <table class="table table-striped table-bordered margin-overide-zero">
+                                <thead>
+                                    <th>Query</th>
+                                    <th>File Type</th>
+                                    <th>Search In</th>
+                                    <th>Options</th>
+                                    <th></th>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" id="query" ng-model="searchOptions.query">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <div class="checkbox">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" ng-model="searchOptions.extentions.word">
+                                                        Word Document
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" ng-model="searchOptions.extentions.pdf">
+                                                        PDF
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <div class="checkbox">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" ng-model="searchOptions.extentions.name">
+                                                        File Name
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" ng-model="searchOptions.extentions.contents">
+                                                        File Contents
+                                                    </label>
+                                                </div>
+                                            </div>   
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <div class="checkbox">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" ng-model="searchOptions.caseSensitive">
+                                                        Case Sensitive
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <button type="button" ng-click="{{ 'searchFiles()' }}" class="btn btn-primary">Search</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                     <div id="accordion" role="tablist" aria-multiselectable="true">
                         <div ng-repeat="file in fileList track by $index">
                             <div class="card">
@@ -63,7 +129,7 @@
                                        aria-expanded="false"
                                        aria-controls="collapse{{ '{{$index}}' }}">
                                        <i class="fa {{ '{{getFileIcon(file)}}' }}" aria-hidden="true"></i>
-                                       {{ '{{file.name}}' }}
+                                       {{ '{{file.name}}.{{file.extention}}' }}
                                     </a>
                                     <a href="{{ '{{getDownloadLink(file)}}' }}" class="btn btn-primary float-right">
                                         <i class="fa fa-download" aria-hidden="true"></i>
