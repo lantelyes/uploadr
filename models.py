@@ -9,17 +9,12 @@ import os, json
 import textract
 
 from utils import *
+from constants import *
 
 
 client = MongoClient()
 db = client.file_database
 file_collection = db.file_collection
-
-
-UPLOAD_FOLDER = 'data/'
-
-
-
 
 class Upload(Resource):
 

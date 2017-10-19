@@ -1,12 +1,14 @@
-ALLOWED_EXTENSIONS = set(['pdf','doc','docx'])
+from constants import *
 
+#convert values in the file objects that JSON cannot serialze
 def serialize_file_list(file_list):
         for f in file_list:
             f['_id'] = str(f['_id'])
             f['date_created'] = str(f['date_created'])
 
         return file_list
-       
+
+#build a search query based on parameters passed in on the request  
 def build_search_qeuery(query, types, extentions,case_sensitive):
 
     query_object =  {"$and": []}
