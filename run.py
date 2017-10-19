@@ -3,13 +3,8 @@ from flask import Flask, render_template
 from flask_restful import Api
 from models import *
 
-
-
 app = Flask(__name__)
 api = Api(app)
-
-
-
 
 api.add_resource(File, '/file')
 api.add_resource(List, '/list')
