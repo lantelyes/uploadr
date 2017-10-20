@@ -6,6 +6,7 @@ from utils import *
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = SECRET_KEY
+
 api = Api(app)
 api.add_resource(File, '/file')
 api.add_resource(List, '/list')

@@ -6,8 +6,6 @@ from pymongo import MongoClient
 from bson.objectid import ObjectId
 from werkzeug.utils import secure_filename
 
-auth = HTTPDigestAuth()
-
 #create the file storage directory if it does not exist
 def create_file_directory(directory):
     if not os.path.exists(directory):

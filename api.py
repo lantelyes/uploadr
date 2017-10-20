@@ -6,6 +6,7 @@ import os, json, textract
 from utils import *
 from constants import *
 
+auth = HTTPDigestAuth()
 
 file_collection = init_database_and_storage("file_collection")
 
