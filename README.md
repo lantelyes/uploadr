@@ -123,6 +123,7 @@ In order to make Uploadr a production ready application the following steps woul
 * The client and backend would ideally be split into their own repositories and ran independently from each other
 * Deployment procedures would need to be created
 * The efficiency of file searching would need to be improved
+* Migrate to Bootstrap 3.x, as 4.0 is still in beta
 
 ## Postmortem
 I had a lot of fun completing this challenge! There were a few things I could have done better in hindsight. First I should have spent more time designing my solution before getting into the code, second I could have organized my commits in a more consistent manner, and finally I could have used branches in git when adding functionality. 
@@ -132,11 +133,13 @@ There were also some things I didn't get to implement due to time constraints th
 * Login page
 * Multiple users
 * File list pagination and sorting based different properties on name/date etc
-* More polish and cleanup of the UI
+* More polish and cleanup of the UI and CSS
 * More robust error handling for both the client and backend
 * More robust database query building methods
 * Full folder synchronization with server directory and database, not just new files, deleted ones also
 * Server directory poller to check for new/deleted files
 * Implement maximum file size and user storage check
+* Use more Angular specfic libraries, such as angular-ui-bootstrap
+
 
 
