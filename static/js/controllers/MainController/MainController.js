@@ -1,4 +1,4 @@
-app.controller("MainController", function($scope, $http, Upload, toastr){ 
+app.controller("MainController", function($scope, $http, Upload, toastr, ngProgressFactory){ 
 
     /*
     BEGIN: controller variables
@@ -77,6 +77,11 @@ app.controller("MainController", function($scope, $http, Upload, toastr){
 
     //Upload the selected file to the server
     $scope.upload= function($file) {
+
+        progressbar = ngProgressFactory.createInstance();
+        progressbar.start();
+      
+
          Upload.upload({
             url: API.UPLOAD.URL,
             data: {file: $file},
@@ -85,6 +90,9 @@ app.controller("MainController", function($scope, $http, Upload, toastr){
             $scope.search(DEFAULT_SEARCH_OPTIONS);
         }, function (response) {
             toastr.error(response.data.message);
+        }, function (evt) {
+            var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+            progressbar.set(progressPercentage)
         });
     }
 
@@ -95,7 +103,13 @@ app.controller("MainController", function($scope, $http, Upload, toastr){
             url: API.DELETE.URL + file["_id"]
         }).then(function successCallback(response) {
     
-                $scope.search(DEFAULT_SEARCH_OPTIONS);
+                //If we are already searching we want to keep the parameters on a refresh
+                if($scope.isSearching) {
+                    $scope.search($scope.searchOptions);
+                } else {
+                    $scope.refreshFileList();
+                }
+             
     
             }, function errorCallback(response) {
                 toastr.error(response.data.message);
@@ -134,6 +148,19 @@ app.controller("MainController", function($scope, $http, Upload, toastr){
         });
     }
 
+    //Refresh all files
+    $scope.refreshFileList = function() {
+        queryString = buildQueryString(DEFAULT_SEARCH_OPTIONS);
+        $http({
+            method: API.LIST.METHOD,
+            url: API.LIST.URL + queryString,
+        }).then(function successCallback(response) {
+                $scope.fileList = response.data;
+            }, function errorCallback(response) {
+                toastr.error(response.data.message);
+        });
+    }
+
     /*
     END: helper function for API calls
     */
@@ -145,7 +172,7 @@ app.controller("MainController", function($scope, $http, Upload, toastr){
 
     //Controller initialization
     init = function()  {
-        $scope.search(DEFAULT_SEARCH_OPTIONS);
+        $scope.refreshFileList();
 
         //Initialize bootstrap popovers
         $(function () {
