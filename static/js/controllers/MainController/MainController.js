@@ -112,7 +112,8 @@ app.controller("MainController", function($scope, $http, Upload, toastr, ngProgr
                 } else {
                     $scope.refreshFileList();
                 }
-             
+
+                toastr.success("Duccesfully deleted " + file.name + "." + file.extention) 
     
             }, function errorCallback(response) {
                 toastr.error(response.data.message);
