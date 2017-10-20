@@ -19,7 +19,7 @@ Password: atrium
 ### Known Bugs
 * The client will sometimes send a junk request after an upload attempt
 * The message for no files found is sometimes incorrect
-* File names will loose special characters on upload
+* File names will lose special characters on upload
 
 
 ## Features
@@ -30,6 +30,58 @@ Password: atrium
 * File type detection
 * File description save and edit
 * Scan for new files on startup
+
+##API Reference
+The custom API provides the following endpoints
+### File
+#### URL
+```
+/file
+```
+*'GET'
+Retreives the requested file
+| Parameter     | Desription    | 
+| ------------- |:-------------:|
+| 'file'        | File name     |
+
+*'POST'
+Updates the description for the requested file
+| Data    | Desription          | 
+| ------------- |:-------------:|
+| 'file'        | File JSON object containing descrption and oid
+
+*'DELETE'
+Deletes the sepcified file from the server, both on the database and file system
+| Data    | Desription          | 
+| ------------- |:-------------:|
+| 'oid'         | ObjectId string of file to delete
+
+
+### List
+#### URL
+```
+/list
+```
+*'GET'
+Returns a list of files given the supplied query
+| Parameter     | Desription    | 
+| ------------- |:-------------:|
+| 'query'       | File name or content query for search
+| 'type'        | Type of search to perform, options are 'name', and 'content'
+| 'ext'         | tExtentions of files to include in search, options are 'pdf', and 'doc', and 'docx'
+
+### Upload
+#### URL
+```
+/upload
+```
+*'GET'
+Returns a list of files given the supplied query
+| Data     | Desription         | 
+| ------------- |:-------------:|
+| 'file'        | file to save
+
+
 
 
 ## Installation
@@ -48,7 +100,7 @@ git clone https://github.com/lantelyes/uploadr.git
 cd uploadr
 ```
 
-#### 2) Create a pyhton virtualenv and activate it
+#### 2) Create a python virtualenv and activate it
 ```
 virtualenv env
 source env/bin/activate
