@@ -35,7 +35,7 @@
                        <i class="fa fa-info-circle" aria-hidden="true"></i>
                     </a>
                     <a href="#upload-button" ngf-select="upload($file)" class="btn btn-secondary main-menu-button float-right" id="upload-button"> <i class="fa fa-upload" aria-hidden="true"></i></a>
-                    <a href="#search-button" data-toggle="collapse" data-target="#searchDialog" class="btn btn-secondary main-menu-button float-right" id="upload-button"><i class="fa fa-search" aria-hidden="false"></i></a>
+                    <a href="#search-button" ng-click="toggleSearch()" data-toggle="collapse" data-target="#searchDialog" class="btn btn-secondary main-menu-button float-right" id="upload-button"><i class="fa fa-search" aria-hidden="false"></i></a>
                     <h1>Browser</h1>
                     <div class="collapse" id="searchDialog">
                         <div class="card">
@@ -109,7 +109,8 @@
                     </div>
                     <div class="card" ng-hide="fileList.length > 0">
                         <div class="card-header" role="tab">
-                            Click the upload button to start uploading files!
+                            <span ng-if="!isSearching">Click the upload button to start uploading files!</span>
+                            <span ng-if="isSearching">No files found by search</span>
                         </div>
                     </div>
                     <div id="accordion" role="tablist" aria-multiselectable="true">

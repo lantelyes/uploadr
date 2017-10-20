@@ -1,6 +1,7 @@
 app.controller("MainController", function($scope, $http, Upload, toastr){ 
 
 
+
     //Options for the search dialog
     $scope.searchOptions = {
         query: "",
@@ -17,6 +18,8 @@ app.controller("MainController", function($scope, $http, Upload, toastr){
 
     //list of files loaded from server
     $scope.fileList = [];
+
+    $scope.isSearching = false;
 
     //Upload the selected file to the server
     $scope.upload= function($file) {
@@ -87,6 +90,11 @@ app.controller("MainController", function($scope, $http, Upload, toastr){
         file.isEditingDescription = true;
     }
 
+    //Toggle the search window
+    $scope.toggleSearch = function() {
+        $scope.isSearching = !$scope.isSearching;
+    }
+
     //Updatethe file descripion on the server
     $scope.saveFileDescription = function(file) {
 
@@ -142,6 +150,7 @@ app.controller("MainController", function($scope, $http, Upload, toastr){
             url: '/list?' + queryString,
         }).then(function successCallback(response) {
                 $scope.fileList = response.data;
+                $scope.isSearching = true;
             }, function errorCallback(response) {
                 toastr.error(response.data.message);
         });
