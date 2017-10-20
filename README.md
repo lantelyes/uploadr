@@ -42,24 +42,24 @@ Password: atrium
 
 ### Steps
 
-##### 1) Clone the repository and enter the directory
+#### 1) Clone the repository and enter the directory
 ```
 git clone https://github.com/lantelyes/uploadr.git
 cd uploadr
 ```
 
-##### 2) Create a pyhton virtualenv and activate it
+#### 2) Create a pyhton virtualenv and activate it
 ```
 virtualenv env
 source env/bin/activate
 ```
 
-##### 3) Install the python dependencies required
+#### 3) Install the python dependencies required
 ```
 pip install -r requirements.txt
 ```
 
-Run the server
+#### 4) Run the server
 ```
 python server.py
 ```
