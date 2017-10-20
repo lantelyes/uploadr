@@ -8,9 +8,14 @@ from werkzeug.utils import secure_filename
 
 auth = HTTPDigestAuth()
 
+#create the file storage directory if it does not exist
+def create_file_directory(directory):
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+
 #Initialize the database
 #Returns a reference to the collection object
-def init_database(collection_name):
+def init_database_and_storage(collection_name):
     client = MongoClient()
     db = client.file_database
     if collection_name not in db.collection_names():
@@ -20,6 +25,8 @@ def init_database(collection_name):
 
     stored_files = get_stored_files()
     merge_existing_files_into_collection(stored_files,  file_collection)
+
+    create_file_directory(UPLOAD_FOLDER)
 
     return file_collection
 

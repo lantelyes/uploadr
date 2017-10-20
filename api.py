@@ -7,7 +7,7 @@ from utils import *
 from constants import *
 
 
-file_collection = init_database("file_collection")
+file_collection = init_database_and_storage("file_collection")
 
 #Upload endpoint
 #Responsible for: uploading files from the frontend and saving them to the server filesystem and database 
