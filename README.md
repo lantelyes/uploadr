@@ -70,20 +70,20 @@ The custom API provides the following endpoints
 ```
 /file
 ```
-#### GET - Retrieves the requested file 
+#### GET: Retrieves the requested file 
 
 | Query String Argumets     | Desription    
 | --------------------------| ------------- 
 |  file                     | File name   
 
-#### DELETE - Deletes the specified file from the server, both on the database and file system
+#### DELETE: Deletes the specified file from the server, both on the database and file system
 
 | Query String Argumets      | Desription    
 | ---------------------------| -------------
 |  oid                       | ObjectId string of file to delete
   
 
-#### POST - Updates the description for the requested file
+#### POST: Updates the description for the requested file
 
 | Body          | Desription          
 | ------------- | ------------- 
@@ -95,19 +95,19 @@ The custom API provides the following endpoints
 ```
 /list
 ```
-#### GET - Returns a list of files given the supplied query
+#### GET: Returns a list of files given the supplied query
 
 | Query String Argumets     | Desription    
 | --------------------------| ------------- 
 |   query                   | File name or content query for search
 |   type                    | Type of search to perform, options are 'name', and 'content'
-|   ext                     | tExtentions of files to include in search, options are 'pdf', and 'doc', and 'docx'
+|   ext                     | Extentions of files to include in search, options are 'pdf', and 'doc', and 'docx'
 
 ### Upload
 ```
 /upload
 ```
-#### POST - Saves a file to the server, both in the database and file system
+#### POST: Saves a file to the server, both in the database and file system
 
 | Data          | Desription         
 | ------------- |------------- |
@@ -125,7 +125,7 @@ In order to make Uploadr a production ready application the following steps woul
 * The efficiency of file searching would need to be improved
 
 ## Postmortem
-I had a lot of fun completing this challenge! There were a few things I could have done better in hindsight. First I should have spent more time designing my solution before getting into the code, second I could have organized my commits to git in a more consistant manner, and finally I could have used branches in git when adding functionalify. 
+I had a lot of fun completing this challenge! There were a few things I could have done better in hindsight. First I should have spent more time designing my solution before getting into the code, second I could have organized my commits to git in a more consistant manner, and finally I could have used branches in git when adding functionality. 
 
 There were also some things I didn't get to implement due to time constraints that I wish I could have, they are:
 
