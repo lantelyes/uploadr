@@ -6,7 +6,6 @@ from utils import *
 app = Flask(__name__)
 
 #Temporary for prototype
-app.config['SECRET_KEY'] = "shhh its a secret" 
 api = Api(app)
 api.add_resource(File, '/file')
 api.add_resource(List, '/list')
