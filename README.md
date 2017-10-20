@@ -4,7 +4,7 @@ Uploadr is a simple file storage server.
 It is a part of completed code challenge for Atrium LTS engineering.
 
 ## Usage Notes:
-### Platform Compatability
+### Platform Compatibility
 This has been tested on the following platforms
 * Mac OSX 10.12 64-bit running python 2.7
 
@@ -25,7 +25,7 @@ Password: atrium
 ## Features
 * Initial gate authentication
 * File list, upload, download and delete
-* FIle upload progress bar
+* File upload progress bar
 * File search using name and contents
 * File type detection
 * File description save and edit
@@ -72,13 +72,13 @@ The custom API provides the following endpoints
 ```
 #### GET: Retrieves the requested file 
 
-| Query String Argumets     | Desription    
+| Query String Arguments     | Description    
 | --------------------------| ------------- 
 |  file                     | File name   
 
 #### DELETE: Deletes the specified file from the server, both on the database and file system
 
-| Query String Argumets      | Desription    
+| Query String Arguments      | Description    
 | ---------------------------| -------------
 |  oid                       | ObjectId string of file to delete
   
@@ -87,7 +87,7 @@ The custom API provides the following endpoints
 
 | Body          | Desription          
 | ------------- | ------------- 
-|  file         | File JSON object containing descrption and oid
+|  file         | File JSON object containing description and oid
 
 
 
@@ -97,7 +97,7 @@ The custom API provides the following endpoints
 ```
 #### GET: Returns a list of files given the supplied query
 
-| Query String Argumets     | Desription    
+| Query String Arguments     | Description    
 | --------------------------| ------------- 
 |   query                   | File name or content query for search
 |   type                    | Type of search to perform, options are 'name', and 'content'
@@ -109,7 +109,7 @@ The custom API provides the following endpoints
 ```
 #### POST: Saves a file to the server, both in the database and file system
 
-| Data          | Desription         
+| Data          | Description         
 | ------------- |------------- |
 |   file        | file to save
 
@@ -125,7 +125,7 @@ In order to make Uploadr a production ready application the following steps woul
 * The efficiency of file searching would need to be improved
 
 ## Postmortem
-I had a lot of fun completing this challenge! There were a few things I could have done better in hindsight. First I should have spent more time designing my solution before getting into the code, second I could have organized my commits to git in a more consistant manner, and finally I could have used branches in git when adding functionality. 
+I had a lot of fun completing this challenge! There were a few things I could have done better in hindsight. First I should have spent more time designing my solution before getting into the code, second I could have organized my commits in a more consistent manner, and finally I could have used branches in git when adding functionality. 
 
 There were also some things I didn't get to implement due to time constraints that I wish I could have, they are:
 
