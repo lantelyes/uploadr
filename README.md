@@ -70,7 +70,7 @@ python server.py
 
 In order to make Uploadr a production ready application the following steps would need to be completed:
 
-* User data would be encrypted and stored in a database rather than the code itself
+* User data and API key would be encrypted and stored in a database rather than the code itself
 * Unit tests would be written to test application functionality
 * A Continuous Integration system would need to be implemented
 * The client and backend would ideally be split into their own repositories and ran independently from each other
