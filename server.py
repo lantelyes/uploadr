@@ -4,7 +4,9 @@ from api import *
 from utils import *
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = "shhh its a secret"
+
+#Temporary for prototype
+app.config['SECRET_KEY'] = "shhh its a secret" 
 
 
 api = Api(app)
@@ -12,6 +14,8 @@ api.add_resource(File, '/file')
 api.add_resource(List, '/list')
 api.add_resource(Upload, '/upload')
 
+#Temporary for prototype
+#Ideally the final version would store user credentials in a secure database
 users = {
     'atrium': 'atrium'
 }
@@ -22,7 +26,7 @@ def get_pw(username):
         return users.get(username)
     return None
 
-#our main page
+#Our main page
 @app.route('/')
 @auth.login_required
 def index():

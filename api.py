@@ -48,6 +48,11 @@ class Upload(Resource):
         text = textract.process(path)
         date_created = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
+
+        if not filename or not ext:
+            raise BadRequest("Bad filename")
+
+
         file_data = {
             'name': name,
             'size_in_Kb': size,
@@ -131,5 +136,5 @@ class List(Resource):
         query_object = build_search_qeuery(search_query, serach_types, search_extentions, search_case_sensitive)
         file_list = list(file_collection.find(query_object))
     
-        return  serialize_file_list(file_list)
+        return  prep_file_list_for_json(file_list)
         

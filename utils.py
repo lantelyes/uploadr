@@ -20,10 +20,12 @@ def check_auth(username, password):
 
 
 #convert values in the file objects that JSON cannot serialze
-def serialize_file_list(file_list):
+def prep_file_list_for_json(file_list):
         for f in file_list:
             f['_id'] = str(f['_id'])
             f['date_created'] = str(f['date_created'])
+            #Clear out the text data as we use the database for searching and dont need to send all that data back to the client
+            f['text'] = ""
 
         return file_list
 
