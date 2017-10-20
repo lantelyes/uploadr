@@ -3,7 +3,7 @@
 This is a completed code challenge for Atrium LTS engineering.
 
 ## General Notes:
-* This has only been tested on Mac OSX 10.12 and python 2.7
+This has only been tested on Mac OSX 10.12 and python 2.7
 
 ## Features
 * Initial gate authentication
@@ -57,7 +57,7 @@ Password: atrium
 
 ## Known Bugs
 * The client will sometimes send a junk request after an upload attempt
-* The message for no files is sometimes incorrect
+* The message for no files found is sometimes incorrect
 
 
 ## Production-ready Steps
@@ -80,3 +80,5 @@ I had a lot of fun completing this challenge! However, there were some things I 
 * File list pagination with configurable number of items per page
 * Do more polish and cleanup of the UI
 * More robust error handling for both the client and backend
+* Full folder synchronization with server directory and database, not just new files, deleted ones also
+* Server directory poller do check for new/deleted files
