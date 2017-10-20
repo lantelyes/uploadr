@@ -73,6 +73,7 @@ In order to make Uploadr a production ready application the following steps woul
 * A Continuous Integration system would need to be implemented
 * The client and backend would ideally be split into their own repositories and ran independently from each other
 * Deployment procedures would need to be created
+* Improve efficiency of file searching
 
 ## Postmortem
 I had a lot of fun completing this challenge! However, there were some things I didn't get to implement due to time constraints that I wish I could have, they are:
@@ -85,3 +86,4 @@ I had a lot of fun completing this challenge! However, there were some things I 
 * More robust error handling for both the client and backend
 * Full folder synchronization with server directory and database, not just new files, deleted ones also
 * Server directory poller do check for new/deleted files
+* Implement maximum file size and user storage check
