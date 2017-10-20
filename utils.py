@@ -155,8 +155,6 @@ def build_search_qeuery(query, types, extentions,case_sensitive):
     if len(main_query["$or"]) != 0:
         query_object["$and"].append(main_query)
 
-    print query_object
-
     return query_object
 
 
