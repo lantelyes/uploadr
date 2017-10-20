@@ -1,5 +1,9 @@
 app.controller("MainController", function($scope, $http, Upload, toastr){ 
 
+    /*
+    BEGIN: controller variables
+    */
+
     //Options for the search dialog
     $scope.searchOptions = {
         query: "",
@@ -8,7 +12,7 @@ app.controller("MainController", function($scope, $http, Upload, toastr){
             pdf: false
         },
         types: {
-            name: true,
+            name: false,
             contents: false,
         },
         caseSensitive: false
@@ -16,6 +20,15 @@ app.controller("MainController", function($scope, $http, Upload, toastr){
 
     $scope.fileList = [];
     $scope.isSearching = false;
+
+    /*
+    END: controller variables
+    */
+
+
+    /*
+    BEGIN: general helper functions
+    */
 
     //Open the descripion editor
     $scope.editFileDescription = function(file) {
@@ -40,30 +53,38 @@ app.controller("MainController", function($scope, $http, Upload, toastr){
                 switch(file.extention){
                     case "doc":
                     case "docx":
-                        return "fa-file-word-o"
+                        return "fa-file-word-o";
                     case "pdf":
-                        return "fa-file-pdf-o"
+                        return "fa-file-pdf-o";
                     default:
-                        return "fa-file"
+                        return "fa-file";
                 }
         
             }
         
-            //Given a file object, return its type based on its extention
-            $scope.getFileType = function(file) {
-        
-                switch(file.extention){
-                    case "doc":
-                    case "docx":
-                        return "Word Document"
-                    case "pdf":
-                        return "PDF"
-                    default:
-                        return "Unknown"
-                }
-        
-            }
+    //Given a file object, return its type based on its extention
+    $scope.getFileType = function(file) {
+
+        switch(file.extention){
+            case "doc":
+            case "docx":
+                return "Word Document";
+            case "pdf":
+                return "PDF";
+            default:
+                return "Unknown";
+        }
+
+    }
+
+    /*
+    END: general helper functions
+    */
             
+
+    /*
+    BEGIN: helper function for API calls
+    */
 
     //Upload the selected file to the server
     $scope.upload= function($file) {
@@ -101,7 +122,7 @@ app.controller("MainController", function($scope, $http, Upload, toastr){
             data: file
         }).then(function successCallback(response) {
                 toastr.success("Succesfily saved file desciption");
-                file.isEditingDescription = false
+                file.isEditingDescription = false;
             }, function errorCallback(response) {
                 toastr.error(response.data.message);
         });
@@ -109,7 +130,7 @@ app.controller("MainController", function($scope, $http, Upload, toastr){
     }
 
     //Search files using the saved search paramaters
-    $scope.searchFiles = function(searchOptions)
+    $scope.search = function(searchOptions)
     {
 
         queryString = buildQueryString(searchOptions);
@@ -124,18 +145,25 @@ app.controller("MainController", function($scope, $http, Upload, toastr){
         });
     }
 
+    /*
+    END: helper function for API calls
+    */
+
+
+    /*
+    BEGIN: local controller helper functions
+    */
+
     //Controller initialization
     init = function()  {
-        populateFileList();
+        $scope.search($scope.searchOptions);
 
         //Initialize bootstrap popovers
         $(function () {
-            $('[data-toggle="popover"]').popover()
+            $('[data-toggle="popover"]').popover();
         })
 
     }
-
-
 
     //Build a query string to pass to the API for file searching
     buildQueryString = function(searchOptions) {
@@ -143,42 +171,31 @@ app.controller("MainController", function($scope, $http, Upload, toastr){
 
         if(searchOptions.extentions.word)
         {
-            queryString += "ext=doc&ext=docx&"
+            queryString += "ext=doc&ext=docx&";
         }
         if(searchOptions.extentions.pdf)
         {
-            queryString += "ext=pdf&"
+            queryString += "ext=pdf&";
         }
         if(searchOptions.types.name)
         {
-            queryString += "type=name&"
+            queryString += "type=name&";
         }
         if(searchOptions.types.contents)
         {
-            queryString += "type=contents&"
+            queryString += "type=contents&";
         }
         if(searchOptions.caseSensitive)
         {
-            queryString += "case=true"
+            queryString += "case=true";
         }
 
         return queryString;
     }
 
-
-    //populate the file list with data from the server
-    populateFileList = function() {
-        $http({
-            method: 'GET',
-            url: '/list?query=&ext=pdf&ext=doc&ext=docx'
-        }).then(function successCallback(response) {
-    
-                $scope.fileList = response.data;
-    
-            }, function errorCallback(response) {
-                toastr.error(response.data.message);
-        });
-    }
+    /*
+    END: local controller helper functions
+    */
 
     init();
 });
