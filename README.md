@@ -1,11 +1,12 @@
 # Uploadr
 
 Uploadr is a simple file storage server.
-it is a part of completed code challenge for Atrium LTS engineering.
+It is a part of completed code challenge for Atrium LTS engineering.
 
 ## Usage Notes:
-### Platform
-This has only been tested on Mac OSX 10.12 and python 2.7
+### Platform Compatability
+This has tested on the following platforms
+* Mac OSX 10.12 64-bit running python 2.7
 
 ### Authentication
 
@@ -19,6 +20,7 @@ Password: atrium
 ### Known Bugs
 * The client will sometimes send a junk request after an upload attempt
 * The message for no files found is sometimes incorrect
+* File names will loose special characters on upload
 
 
 ## Features
