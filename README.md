@@ -5,11 +5,10 @@ It is a part of completed code challenge for Atrium LTS engineering.
 
 ## Usage Notes:
 ### Platform Compatability
-This has tested on the following platforms
+This has been tested on the following platforms
 * Mac OSX 10.12 64-bit running python 2.7
 
 ### Authentication
-
 The default login information is:
 ```
 Username: atrium
@@ -37,7 +36,6 @@ Password: atrium
 ## Installation
 
 ### Prerequisites
-
 * Python 2.7
 * Virtualenv
 * MongoDB running on system
@@ -68,7 +66,6 @@ python server.py
 ```
 
 ## Production-ready Steps
-
 In order to make Uploadr a production ready application the following steps would need to be completed:
 
 * User data and API key would be encrypted and stored in a database rather than the code itself
@@ -78,14 +75,13 @@ In order to make Uploadr a production ready application the following steps woul
 * Deployment procedures would need to be created
 
 ## Postmortem
-
 I had a lot of fun completing this challenge! However, there were some things I didn't get to implement due to time constraints that I wish I could have, they are:
 
 * Login page
 * Multiple users
 * File list sorting based different properties on name/date etc
 * File list pagination with configurable number of items per page
-* Do more polish and cleanup of the UI
+* More polish and cleanup of the UI
 * More robust error handling for both the client and backend
 * Full folder synchronization with server directory and database, not just new files, deleted ones also
 * Server directory poller do check for new/deleted files

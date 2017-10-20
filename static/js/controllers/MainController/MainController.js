@@ -217,6 +217,7 @@ app.controller("MainController", function($scope, $http, Upload, toastr, ngProgr
     END: local controller helper functions
     */
 
+    //Initialize data for controller
     init();
 });
 
