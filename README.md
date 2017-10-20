@@ -55,6 +55,11 @@ Username: atrium
 Password: atrium
 ```
 
+## Known Bugs
+* The client will sometimes send a junk request after an upload attempt
+* The message for no files is sometimes incorrect
+
+
 ## Production-ready Steps
 
 In order to make Uploadr a production ready application the following steps would need to be completed:
@@ -62,7 +67,7 @@ In order to make Uploadr a production ready application the following steps woul
 * User data would be encrypted and stored in a database rather than the code itself
 * Unit tests would be writted to test application functionality
 * A Continuous Integration system would need to be implemented
-* The frontend and backend would ideally be split into their own repositories and ran independently from eachother
+* The client and backend would ideally be split into their own repositories and ran independently from eachother
 * Deployment procedures would need to be created
 
 ## Postmortem
@@ -74,4 +79,4 @@ I had a lot of fun completing this challenge! However, there were some things I 
 * File list sorting based different properties on name/date etc
 * File list pagination with configurable number of items per page
 * Do more polish and cleanup of the UI
-* More robust error handling for both the frontend and backend
+* More robust error handling for both the client and backend
