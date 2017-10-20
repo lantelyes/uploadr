@@ -21,3 +21,16 @@
             METHOD: "GET"
         }
     }
+
+    DEFAULT_SEARCH_OPTIONS = {
+        query: "",
+        extentions: {
+            word: false,
+            pdf: false
+        },
+        types: {
+            name: false,
+            contents: false,
+        },
+        caseSensitive: false
+    };

@@ -5,18 +5,7 @@ app.controller("MainController", function($scope, $http, Upload, toastr){
     */
 
     //Options for the search dialog
-    $scope.searchOptions = {
-        query: "",
-        extentions: {
-            word: false,
-            pdf: false
-        },
-        types: {
-            name: false,
-            contents: false,
-        },
-        caseSensitive: false
-    };
+    $scope.searchOptions = angular.copy(DEFAULT_SEARCH_OPTIONS);
 
     $scope.fileList = [];
     $scope.isSearching = false;
@@ -93,7 +82,7 @@ app.controller("MainController", function($scope, $http, Upload, toastr){
             data: {file: $file},
         }).then(function (response) {
             toastr.success("Upload Successful");
-            populateFileList();
+            $scope.search(DEFAULT_SEARCH_OPTIONS);
         }, function (response) {
             toastr.error(response.data.message);
         });
@@ -106,7 +95,7 @@ app.controller("MainController", function($scope, $http, Upload, toastr){
             url: API.DELETE.URL + file["_id"]
         }).then(function successCallback(response) {
     
-                populateFileList();
+                $scope.search(DEFAULT_SEARCH_OPTIONS);
     
             }, function errorCallback(response) {
                 toastr.error(response.data.message);
@@ -156,7 +145,7 @@ app.controller("MainController", function($scope, $http, Upload, toastr){
 
     //Controller initialization
     init = function()  {
-        $scope.search($scope.searchOptions);
+        $scope.search(DEFAULT_SEARCH_OPTIONS);
 
         //Initialize bootstrap popovers
         $(function () {
