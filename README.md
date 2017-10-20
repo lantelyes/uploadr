@@ -39,8 +39,9 @@ The custom API provides the following endpoints
 /file
 ```
 *'GET'
-Retreives the requested file
-| Parameter     | Desription    |
+Retreives the requested 
+
+| Parameter     | Desription    
 | ------------- | ------------- 
 | 'file'        | File name     
 
