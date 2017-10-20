@@ -1,9 +1,13 @@
 ## Uploadr
 
-This is a completed code challenge for Atrium LTS engineering
+This is a completed code challenge for Atrium LTS engineering.
+
+## General Notes:
+* This has only been tested on Mac OSX 10.12 and python 2.7
 
 ## Features
 * Initial gate authentication
+* File list
 * File upload and download
 * File search using name and contents
 * File type detection
