@@ -80,6 +80,7 @@ app.controller("MainController", function($scope, $http, Upload, toastr, ngProgr
 
         progressbar = ngProgressFactory.createInstance();
         progressbar.start();
+        progressbar.setColor(PROGRESS_BAR_COLOR);
       
 
          Upload.upload({
@@ -87,9 +88,11 @@ app.controller("MainController", function($scope, $http, Upload, toastr, ngProgr
             data: {file: $file},
         }).then(function (response) {
             toastr.success("Upload Successful");
+            progressbar.complete();
             $scope.search(DEFAULT_SEARCH_OPTIONS);
         }, function (response) {
             toastr.error(response.data.message);
+            progressbar.complete();
         }, function (evt) {
             var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
             progressbar.set(progressPercentage)
