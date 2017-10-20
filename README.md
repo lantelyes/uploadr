@@ -26,7 +26,8 @@ Password: atrium
 ## Features
 * Initial gate authentication
 * File list
-* File upload and download
+* File upload, download and delete
+* FIle upload progress bar
 * File search using name and contents
 * File type detection
 * File description save and edit
