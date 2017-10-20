@@ -1,10 +1,25 @@
-## Uploadr
+# Uploadr
 
 Uploadr is a simple file storage server.
 it is a completed code challenge for Atrium LTS engineering.
 
-## General Notes:
+## Usage Notes:
+### Platform
 This has only been tested on Mac OSX 10.12 and python 2.7
+
+### Authentication
+
+The default login information is:
+```
+Username: atrium
+Password: atrium
+```
+
+
+### Known Bugs
+* The client will sometimes send a junk request after an upload attempt
+* The message for no files found is sometimes incorrect
+
 
 ## Features
 * Initial gate authentication
@@ -15,14 +30,15 @@ This has only been tested on Mac OSX 10.12 and python 2.7
 * File description save and edit
 * Scan for new files on startup
 
-## Prerequisites
+
+## Installation
+
+### Prerequisites
 
 * Python 2.7
 * Virtualenv
 * MongoDB running on system
 * Textract dependencies, please see https://textract.readthedocs.io/en/stable/installation.html
-
-## Instructions
 
 In order to run Uploadr, follow the following steps:
 
@@ -47,19 +63,6 @@ Run the server
 ```
 python server.py
 ```
-
-## Authentication
-
-The default login information is:
-```
-Username: atrium
-Password: atrium
-```
-
-## Known Bugs
-* The client will sometimes send a junk request after an upload attempt
-* The message for no files found is sometimes incorrect
-
 
 ## Production-ready Steps
 
