@@ -38,19 +38,19 @@ The custom API provides the following endpoints
 ```
 /file
 ```
-*GET -Retreives the requested file 
+* GET -Retreives the requested file 
 
 | Parameter     | Desription    
 | ------------- | ------------- 
 | 'file'        | File name     
 
-*POST - Updates the description for the requested file
+* POST - Updates the description for the requested file
 
 | Data    | Desription          
 | ------------- | ------------- 
 | 'file'        | File JSON object containing descrption and oid
 
-*DELETE - Deletes the sepcified file from the server, both on the database and file system
+* DELETE - Deletes the sepcified file from the server, both on the database and file system
 
 | Data          | Desription    
 | ------------- | -------------
@@ -62,7 +62,7 @@ The custom API provides the following endpoints
 ```
 /list
 ```
-*GET - Returns a list of files given the supplied query
+* GET - Returns a list of files given the supplied query
 
 | Parameter     | Desription    
 | ------------- | ------------- 
@@ -75,7 +75,7 @@ The custom API provides the following endpoints
 ```
 /upload
 ```
-*GET - Returns a list of files given the supplied query
+* POST - Saves a file to the server, both in the database and file system
 
 | Data          | Desription         
 | ------------- |------------- |
