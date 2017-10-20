@@ -1,7 +1,7 @@
 # Uploadr
 
 Uploadr is a simple file storage server.
-it is a completed code challenge for Atrium LTS engineering.
+it is a part of completed code challenge for Atrium LTS engineering.
 
 ## Usage Notes:
 ### Platform
@@ -40,21 +40,21 @@ Password: atrium
 * MongoDB running on system
 * Textract dependencies, please see https://textract.readthedocs.io/en/stable/installation.html
 
-In order to run Uploadr, follow the following steps:
+### Steps
 
-Clone the repository and enter the directory
+##### 1) Clone the repository and enter the directory
 ```
 git clone https://github.com/lantelyes/uploadr.git
 cd uploadr
 ```
 
-Create a pyhton virtualenv and activate it
+##### 2) Create a pyhton virtualenv and activate it
 ```
 virtualenv env
 source env/bin/activate
 ```
 
-Install the python dependencies required
+##### 3) Install the python dependencies required
 ```
 pip install -r requirements.txt
 ```
