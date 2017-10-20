@@ -36,7 +36,7 @@
                     </a>
                     <a href="#upload-button" ngf-select="upload($file)" class="btn btn-secondary main-menu-button float-right" id="upload-button"> <i class="fa fa-upload" aria-hidden="true"></i></a>
                     <a href="#search-button" ng-click="toggleSearch()" data-toggle="collapse" data-target="#searchDialog" class="btn btn-secondary main-menu-button float-right" id="upload-button"><i class="fa fa-search" aria-hidden="false"></i></a>
-                    <h1>Uploadr: Browser</h1>
+                    <h1>File Browser</h1>
                     <div class="collapse" id="searchDialog">
                         <div class="card">
                             <div class="card-header"><h5>Search</h5></div>
@@ -118,21 +118,23 @@
                             <div class="card">
                                 <div class="card-header" role="tab" id="heading{{ '{{$index}}' }}">
                                     <h5 class="mb-0">
-                                    <a data-toggle="collapse" data-parent="#accordion"
-                                       class="file-details-button"
-                                       href="#collapse{{ '{{$index}}' }}" 
-                                       aria-expanded="false"
-                                       aria-controls="collapse{{ '{{$index}}' }}">
-                                       <i class="fa fa-caret-square-o-down " aria-hidden="true"></i>                        
-                                    </a>
-                                    <i class="fa {{ '{{getFileIcon(file)}}' }}" aria-hidden="true"></i>
-                                    {{ '{{file.name}}.{{file.extention}}' }}
-                                    <a href="{{ '{{getDownloadLink(file) }}' }}" class="btn btn-primary float-right file-menu-button">
-                                        <i class="fa fa-download" aria-hidden="true"></i>
-                                    </a>
-                                    <a href="#" ng-click="{{ 'delete(file)' }}" click-confirm="Are you sure you want to delete {{'{{file.name}}.{{file.extention}}'}}?" class="btn btn-primary float-right file-menu-button">
-                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                    </a>
+                                        <a data-toggle="collapse" data-parent="#accordion"
+                                        class="file-details-button"
+                                        href="#collapse{{ '{{$index}}' }}" 
+                                        aria-expanded="false"
+                                        aria-controls="collapse{{ '{{$index}}' }}">
+                                        <i class="fa fa-caret-square-o-down " aria-hidden="true"></i>                        
+                                        </a>
+                                        <i class="fa {{ '{{getFileIcon(file)}}' }}" aria-hidden="true"></i>
+                                        {{ '{{file.name}}.{{file.extention}}' }}
+                                        <a href="{{ '{{getDownloadLink(file) }}' }}" class="btn btn-primary float-right file-menu-button">
+                                            <i class="fa fa-download" aria-hidden="true"></i>
+                                        </a>
+                                        <a href="#" ng-click="{{ 'delete(file)' }}" 
+                                        click-confirm="Are you sure you want to delete {{'{{file.name}}.{{file.extention}}'}}?" 
+                                        class="btn btn-primary float-right file-menu-button">
+                                            <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                        </a>
                                     </h5>
                                 </div>
                                 <div id="collapse{{ '{{$index}}' }}" class="collapse panel-body" role="tabpanel" aria-labelledby="heading{{ '{{$index}}' }}">
@@ -170,7 +172,9 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td> {{ '{{file.date_created}}' }}</td>
+                                                    <td> 
+                                                        {{ '{{file.date_created}}' }}
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -187,16 +191,17 @@
     </div>
     <!-- /#wrapper -->
 
-    
+    <!-- CDN files -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"></script>
     <script src="https://getbootstrap.com/assets/js/vendor/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
     <script src="https://unpkg.com/angular-toastr/dist/angular-toastr.tpls.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.6/angular-animate.js"></script>
+
+
+    <!-- Local Files -->
     <script src="{{ url_for('static', filename='js/libraries/ng-file-upload-all.min.js') }}"></script>
-
-
     <script src="{{ url_for('static', filename='js/app.js') }}"></script>
     <script src="{{ url_for('static', filename='js/config.js') }}"></script>
     <script src="{{ url_for('static', filename='js/constants.js') }}"></script>
