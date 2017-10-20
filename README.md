@@ -80,10 +80,10 @@ I had a lot of fun completing this challenge! However, there were some things I 
 
 * Login page
 * Multiple users
-* File list sorting based different properties on name/date etc
-* File list pagination with configurable number of items per page
+* File list pagination and sorting based different properties on name/date etc
 * More polish and cleanup of the UI
 * More robust error handling for both the client and backend
+* More robust database query building methods
 * Full folder synchronization with server directory and database, not just new files, deleted ones also
-* Server directory poller do check for new/deleted files
+* Server directory poller to check for new/deleted files
 * Implement maximum file size and user storage check
