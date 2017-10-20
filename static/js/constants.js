@@ -15,5 +15,9 @@
         DOWNLOAD: {
             URL: "/file?name=",
             METHOD: "GET"
+        },
+        LIST: {
+            URL: "/list?",
+            METHOD: "GET"
         }
     }

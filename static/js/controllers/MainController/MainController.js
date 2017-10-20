@@ -1,7 +1,5 @@
 app.controller("MainController", function($scope, $http, Upload, toastr){ 
 
-
-
     //Options for the search dialog
     $scope.searchOptions = {
         query: "",
@@ -16,10 +14,56 @@ app.controller("MainController", function($scope, $http, Upload, toastr){
         caseSensitive: false
     };
 
-    //list of files loaded from server
     $scope.fileList = [];
-
     $scope.isSearching = false;
+
+    //Open the descripion editor
+    $scope.editFileDescription = function(file) {
+        file.isEditingDescription = true;
+    }
+
+    //Toggle the search window
+    $scope.toggleSearch = function() {
+        $scope.isSearching = !$scope.isSearching;
+    }
+
+    //Get the download link for a given file
+    $scope.getDownloadLink = function(file) {
+        
+        return API.DOWNLOAD.URL + file.name + "." + file.extention;
+        
+    }
+
+    //Given a file object, return the appropriate icon class for use in the DOM
+    $scope.getFileIcon = function(file) {
+        
+                switch(file.extention){
+                    case "doc":
+                    case "docx":
+                        return "fa-file-word-o"
+                    case "pdf":
+                        return "fa-file-pdf-o"
+                    default:
+                        return "fa-file"
+                }
+        
+            }
+        
+            //Given a file object, return its type based on its extention
+            $scope.getFileType = function(file) {
+        
+                switch(file.extention){
+                    case "doc":
+                    case "docx":
+                        return "Word Document"
+                    case "pdf":
+                        return "PDF"
+                    default:
+                        return "Unknown"
+                }
+        
+            }
+            
 
     //Upload the selected file to the server
     $scope.upload= function($file) {
@@ -48,53 +92,6 @@ app.controller("MainController", function($scope, $http, Upload, toastr){
         });
     }
     
-    //Get the download link for a given file
-    $scope.getDownloadLink = function(file) {
-
-        return API.DOWNLOAD.URL + file.name + "." + file.extention;
-
-    }
-    
-    //Given a file object, return the appropriate icon class for use in the DOM
-    $scope.getFileIcon = function(file) {
-
-        switch(file.extention){
-            case "doc":
-            case "docx":
-                return "fa-file-word-o"
-            case "pdf":
-                return "fa-file-pdf-o"
-            default:
-                return "fa-file"
-        }
-
-    }
-
-    //Given a file object, return its type based on its extention
-    $scope.getFileType = function(file) {
-
-        switch(file.extention){
-            case "doc":
-            case "docx":
-                return "Word Document"
-            case "pdf":
-                return "PDF"
-            default:
-                return "Unknown"
-        }
-
-    }
-
-    //Open the descripion editor
-    $scope.editFileDescription = function(file) {
-        file.isEditingDescription = true;
-    }
-
-    //Toggle the search window
-    $scope.toggleSearch = function() {
-        $scope.isSearching = !$scope.isSearching;
-    }
-
     //Updatethe file descripion on the server
     $scope.saveFileDescription = function(file) {
 
@@ -110,6 +107,35 @@ app.controller("MainController", function($scope, $http, Upload, toastr){
         });
 
     }
+
+    //Search files using the saved search paramaters
+    $scope.searchFiles = function(searchOptions)
+    {
+
+        queryString = buildQueryString(searchOptions);
+        $http({
+            method: API.LIST.METHOD,
+            url: API.LIST.URL + queryString,
+        }).then(function successCallback(response) {
+                $scope.fileList = response.data;
+                $scope.isSearching = true;
+            }, function errorCallback(response) {
+                toastr.error(response.data.message);
+        });
+    }
+
+    //Controller initialization
+    init = function()  {
+        populateFileList();
+
+        //Initialize bootstrap popovers
+        $(function () {
+            $('[data-toggle="popover"]').popover()
+        })
+
+    }
+
+
 
     //Build a query string to pass to the API for file searching
     buildQueryString = function(searchOptions) {
@@ -137,35 +163,6 @@ app.controller("MainController", function($scope, $http, Upload, toastr){
         }
 
         return queryString;
-    }
-    
-    
-    //Search files using the saved search paramaters
-    $scope.searchFiles = function(searchOptions)
-    {
-
-        queryString = buildQueryString(searchOptions);
-        $http({
-            method: 'GET',
-            url: '/list?' + queryString,
-        }).then(function successCallback(response) {
-                $scope.fileList = response.data;
-                $scope.isSearching = true;
-            }, function errorCallback(response) {
-                toastr.error(response.data.message);
-        });
-    }
-    
-
-
-    init = function()  {
-        populateFileList();
-
-        //Initialize bootstrap popovers
-        $(function () {
-            $('[data-toggle="popover"]').popover()
-          })
-
     }
 
 
