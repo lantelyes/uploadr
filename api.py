@@ -76,7 +76,7 @@ class File(Resource):
         description = file['description']
 
         if oid:
-            if is_in_collection(oid, file_collection):
+            if is_file_in_collection(file, file_collection):
                 file_collection.update_one({'_id' : oid},{"$set": {"description" : description}}, False)
                 return Response(status=200, mimetype='application/json')
             else:
