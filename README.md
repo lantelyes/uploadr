@@ -31,6 +31,38 @@ Password: atrium
 * File description save and edit
 * Scan for new files on startup
 
+## Installation
+
+### Prerequisites
+* Python 2.7
+* Virtualenv
+* MongoDB running on system
+* Textract dependencies, please see https://textract.readthedocs.io/en/stable/installation.html
+
+### Steps
+
+#### 1) Clone the repository and enter the directory
+```
+git clone https://github.com/lantelyes/uploadr.git
+cd uploadr
+```
+
+#### 2) Create a python virtualenv and activate it
+```
+virtualenv env
+source env/bin/activate
+```
+
+#### 3) Install the python dependencies required
+```
+pip install -r requirements.txt
+```
+
+#### 4) Run the server
+```
+python server.py
+```
+
 ## API Reference
 The custom API provides the following endpoints
 ### File
@@ -82,38 +114,6 @@ The custom API provides the following endpoints
 |   file        | file to save
 
 
-## Installation
-
-### Prerequisites
-* Python 2.7
-* Virtualenv
-* MongoDB running on system
-* Textract dependencies, please see https://textract.readthedocs.io/en/stable/installation.html
-
-### Steps
-
-#### 1) Clone the repository and enter the directory
-```
-git clone https://github.com/lantelyes/uploadr.git
-cd uploadr
-```
-
-#### 2) Create a python virtualenv and activate it
-```
-virtualenv env
-source env/bin/activate
-```
-
-#### 3) Install the python dependencies required
-```
-pip install -r requirements.txt
-```
-
-#### 4) Run the server
-```
-python server.py
-```
-
 ## Production-ready Steps
 In order to make Uploadr a production ready application the following steps would need to be completed:
 
@@ -136,3 +136,5 @@ I had a lot of fun completing this challenge! However, there were some things I 
 * Full folder synchronization with server directory and database, not just new files, deleted ones also
 * Server directory poller to check for new/deleted files
 * Implement maximum file size and user storage check
+
+
