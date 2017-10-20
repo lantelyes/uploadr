@@ -48,7 +48,7 @@ python server.py
 The default login information is:
 ```
 Username: atrium
-Password: artrium
+Password: atrium
 ```
 
 ## Production-ready Steps
@@ -63,7 +63,7 @@ In order to make Uploadr a production ready application the following steps woul
 
 ## Postmortem
 
-I had a lot of fun completing this challenge! However, there were some things I didnt get to implement due to time constraints that I wish I could have, they are as follows:
+I had a lot of fun completing this challenge! However, there were some things I didnt get to implement due to time constraints that I wish I could have, they are:
 
 * Login page
 * Multiple users
