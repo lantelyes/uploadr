@@ -40,20 +40,20 @@ The custom API provides the following endpoints
 ```
 *'GET'
 Retreives the requested file
-| Parameter     | Desription    | 
-| ------------- |:-------------:|
-| 'file'        | File name     |
+| Parameter     | Desription    |
+| ------------- | ------------- 
+| 'file'        | File name     
 
 *'POST'
 Updates the description for the requested file
-| Data    | Desription          | 
-| ------------- |:-------------:|
+| Data    | Desription          
+| ------------- | ------------- 
 | 'file'        | File JSON object containing descrption and oid
 
 *'DELETE'
 Deletes the sepcified file from the server, both on the database and file system
-| Data    | Desription          | 
-| ------------- |:-------------:|
+| Data          | Desription    
+| ------------- | -------------
 | 'oid'         | ObjectId string of file to delete
 
 
