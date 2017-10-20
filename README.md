@@ -1,6 +1,7 @@
 ## Uploadr
 
-This is a completed code challenge for Atrium LTS engineering.
+Uploadr is a simple file storage server.
+it is a completed code challenge for Atrium LTS engineering.
 
 ## General Notes:
 This has only been tested on Mac OSX 10.12 and python 2.7
