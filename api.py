@@ -1,25 +1,13 @@
 from flask import request, Response, send_from_directory
 from flask_restful import Resource, Api
-from werkzeug.utils import secure_filename
 from werkzeug.exceptions import BadRequest
-from pymongo import MongoClient
-from bson.objectid import ObjectId
 from datetime import datetime
-import os, json
-import textract
-
+import os, json, textract
 from utils import *
 from constants import *
 
 
-
-#Get our file database
-client = MongoClient()
-db = client.file_database
-if "file_collection" not in db.collection_names():
-    db.create_collection("file_collection")
-
-file_collection = db.file_collection
+file_collection = init_database("file_collection")
 
 #Upload endpoint
 #Responsible for: uploading files from the frontend and saving them to the server filesystem and database 
@@ -47,10 +35,6 @@ class Upload(Resource):
         size = size = os.stat(path).st_size
         text = textract.process(path)
         date_created = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-
-
-        if not filename or not ext:
-            raise BadRequest("Bad filename")
 
 
         file_data = {
@@ -92,7 +76,7 @@ class File(Resource):
         description = file['description']
 
         if oid:
-            if file_collection.find({'_id' : oid}).count() == 1:
+            if is_in_collection(oid, file_collection):
                 file_collection.update_one({'_id' : oid},{"$set": {"description" : description}}, False)
                 return Response(status=200, mimetype='application/json')
             else:
