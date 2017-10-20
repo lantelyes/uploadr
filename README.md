@@ -65,14 +65,14 @@ Password: atrium
 In order to make Uploadr a production ready application the following steps would need to be completed:
 
 * User data would be encrypted and stored in a database rather than the code itself
-* Unit tests would be writted to test application functionality
+* Unit tests would be written to test application functionality
 * A Continuous Integration system would need to be implemented
-* The client and backend would ideally be split into their own repositories and ran independently from eachother
+* The client and backend would ideally be split into their own repositories and ran independently from each other
 * Deployment procedures would need to be created
 
 ## Postmortem
 
-I had a lot of fun completing this challenge! However, there were some things I didnt get to implement due to time constraints that I wish I could have, they are:
+I had a lot of fun completing this challenge! However, there were some things I didn't get to implement due to time constraints that I wish I could have, they are:
 
 * Login page
 * Multiple users
