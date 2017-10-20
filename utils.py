@@ -23,7 +23,6 @@ def init_database(collection_name):
 
     return file_collection
 
-
 #Get a list of all the files in our upload directory
 def get_stored_files():
     pdfs = glob.glob(UPLOAD_FOLDER + "*.pdf")
@@ -92,7 +91,7 @@ def is_file_in_collection(file, collection):
         # we can assume the count wont be more than one as two objects cant have the same ObjectId
         return collection.find({'_id' : oid}).count() == 1
 
-
+#Simple authentication functions
 def requires_auth(f):
     @wraps(f)
     def decorated(*args, **kwargs):
@@ -109,7 +108,7 @@ def check_auth(username, password):
     return username == 'admin' and password == 'secret'
 
 
-#convert values in the file objects that JSON cannot serialze
+#Prep values in the file objects that JSON cannot serialze
 def prep_file_list_for_json(file_list):
         for file in file_list:
             file['_id'] = str(file['_id'])
@@ -137,13 +136,11 @@ def build_search_qeuery(query, types, extentions,case_sensitive):
             ext_query["$or"].append({"extention": ext})
         query_object["$and"].append(ext_query)
 
-
     name_query = {"name":  {'$regex': query, "$options" : regex_options} }
     contents_query = {"text":  {'$regex': query, "$options" : regex_options} }
     if "name" not in types and "contents" not in types:
         main_query["$or"].append(name_query)
         main_query["$or"].append(contents_query)
-
 
     if "name" in types:
         main_query["$or"].append(name_query)
