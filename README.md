@@ -69,3 +69,4 @@ I had a lot of fun completing this challenge! However, there were some things I 
 * Multiple users
 * File list sorting based different properties on name/date etc
 * File list pagination with configurable number of items per page
+* Do more polish and cleanup of the UI
