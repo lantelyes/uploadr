@@ -16,6 +16,9 @@ from constants import *
 #Get our file database
 client = MongoClient()
 db = client.file_database
+if "file_collection" not in db.collection_names():
+    db.create_collection("file_collection")
+
 file_collection = db.file_collection
 
 #Upload endpoint
