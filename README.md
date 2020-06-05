@@ -1,7 +1,7 @@
 # Uploadr
 
 Uploadr is a simple file storage server.
-It is a part of completed code challenge for Atrium LTS engineering.
+It is a part of completed code challenge
 
 ## Usage Notes:
 ### Platform Compatibility
